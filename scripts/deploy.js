@@ -5,26 +5,23 @@ const path = require("path");
 async function main() {
 	// 检查是否连接到独立节点
 	const network = await ethers.provider.getNetwork();
-	console.log(`\n🌐 Network: ${network.name} (Chain ID: ${network.chainId})`);
+	console.log(`\nNetwork: ${network.name} (Chain ID: ${network.chainId})`);
 	
 	// 尝试获取区块号来验证连接
 	try {
 		const blockNumber = await ethers.provider.getBlockNumber();
-		console.log(`📦 Current block: ${blockNumber}`);
+		console.log(`Current block: ${blockNumber}`);
 	} catch (error) {
-		console.error("❌ Cannot connect to network:", error.message);
-		console.log("\n💡 提示:");
-		console.log("   如果使用独立节点，请先运行: npx hardhat node");
-		console.log("   然后使用: npm run deploy --network localhost");
+		console.error("Cannot connect to network:", error.message);
 		process.exit(1);
 	}
 	
 	const [deployer] = await ethers.getSigners();
-	console.log("👤 Deployer:", deployer.address);
+	console.log("Deployer:", deployer.address);
 	
 	// 检查部署者余额
 	const balance = await ethers.provider.getBalance(deployer.address);
-	console.log(`💰 Balance: ${ethers.formatEther(balance)} ETH\n`);
+	console.log(`Balance: ${ethers.formatEther(balance)} ETH\n`);
 
 	const supply = ethers.parseUnits("1000000", 18);
 	const TestToken = await ethers.getContractFactory("TestToken");
@@ -82,8 +79,8 @@ CORS_ORIGIN=*
 
 	const envPath = path.join(__dirname, "..", ".env");
 	fs.writeFileSync(envPath, envContent);
-	console.log("\n✅ .env file generated successfully!");
-	console.log("📝 File location:", envPath);
+	console.log("\n.env file generated successfully!");
+	console.log("File location:", envPath);
 	
 	// 同时输出到控制台，方便复制
 	console.log("\n" + "=".repeat(60));

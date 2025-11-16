@@ -58,7 +58,7 @@ npm run build
 ### 3. 部署合约（自动生成.env文件）
 
 ```bash
-npm run deploy
+npm run deploy:localhost
 ```
 
 部署完成后会自动生成 `.env` 文件，包含所有合约地址。

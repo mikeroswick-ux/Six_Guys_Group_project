@@ -128,6 +128,14 @@ function Swap() {
     setAmountOut(tempAmount)
   }
 
+  const getTokenSymbol = (tokenAddress) => {
+    if (!tokenAddress || !networkConfig?.contracts) return 'Select Token'
+    const { Token0, Token1 } = networkConfig.contracts
+    if (tokenAddress.toLowerCase() === (Token0 || '').toLowerCase()) return 'TKA'
+    if (tokenAddress.toLowerCase() === (Token1 || '').toLowerCase()) return 'TKB'
+    return 'Token'
+  }
+
   return (
     <div className="swap-container">
       <h2>Token Swap</h2>
@@ -144,7 +152,7 @@ function Swap() {
               disabled={loading}
             />
             <div className="token-select">
-              <span>{tokenIn ? `${tokenIn.slice(0, 6)}...${tokenIn.slice(-4)}` : 'Select Token'}</span>
+              <span>{getTokenSymbol(tokenIn)}</span>
             </div>
           </div>
         </div>
@@ -164,7 +172,7 @@ function Swap() {
               className="readonly"
             />
             <div className="token-select">
-              <span>{tokenOut ? `${tokenOut.slice(0, 6)}...${tokenOut.slice(-4)}` : 'Select Token'}</span>
+              <span>{getTokenSymbol(tokenOut)}</span>
             </div>
           </div>
         </div>

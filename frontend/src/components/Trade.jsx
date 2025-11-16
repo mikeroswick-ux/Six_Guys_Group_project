@@ -131,7 +131,7 @@ function Trade() {
 
   return (
     <div className="trade-container">
-      <h2>Buy & Sell</h2>
+      <h2>Buy / Sell TOKEN with ETH</h2>
 
       <div className="mode-selector">
         <button
@@ -161,9 +161,8 @@ function Trade() {
             />
             <div className="token-display">
               <span>
-                {mode === 'buy'
-                  ? (networkConfig?.contracts?.Token0 ? `${networkConfig.contracts.Token0.slice(0, 6)}...${networkConfig.contracts.Token0.slice(-4)}` : 'Token0')
-                  : (token ? `${token.slice(0, 6)}...${token.slice(-4)}` : 'Token')}
+                {/* UI semantics: treat Token0 as ETH, Token1 as TOKEN */}
+                {mode === 'buy' ? 'ETH' : 'TOKEN'}
               </span>
             </div>
           </div>
@@ -183,9 +182,8 @@ function Trade() {
             />
             <div className="token-display">
               <span>
-                {mode === 'buy'
-                  ? (token ? `${token.slice(0, 6)}...${token.slice(-4)}` : 'Token1')
-                  : (networkConfig?.contracts?.Token0 ? `${networkConfig.contracts.Token0.slice(0, 6)}...${networkConfig.contracts.Token0.slice(-4)}` : 'Token0')}
+                {/* Receive TOKEN when buying, receive ETH when selling */}
+                {mode === 'buy' ? 'TOKEN' : 'ETH'}
               </span>
             </div>
           </div>
