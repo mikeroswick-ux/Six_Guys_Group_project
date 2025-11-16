@@ -1,0 +1,167 @@
+.trade-container h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.mode-selector {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.mode-button {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid #e9ecef;
+  background: white;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #6c757d;
+}
+
+.mode-button:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.mode-button.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.trade-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.trade-input-group {
+  margin-bottom: 1rem;
+}
+
+.trade-input-group label {
+  display: block;
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.input-wrapper {
+  display: flex;
+  background: white;
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.input-wrapper:focus-within {
+  border-color: #667eea;
+}
+
+.input-wrapper input {
+  flex: 1;
+  border: none;
+  padding: 1rem;
+  font-size: 1.2rem;
+  outline: none;
+  background: transparent;
+}
+
+.input-wrapper input.readonly {
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+.token-display {
+  padding: 1rem;
+  background: #f8f9fa;
+  border-left: 1px solid #e9ecef;
+  display: flex;
+  align-items: center;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.token-display span {
+  font-size: 0.9rem;
+  color: #495057;
+  font-weight: 500;
+}
+
+.arrow {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #667eea;
+  margin: 0.5rem 0;
+}
+
+.message {
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.message.error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.message.success {
+  background: #d4edda;
+  color: #155724;
+}
+
+.action-button {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 1rem;
+}
+
+.buy-button {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+}
+
+.buy-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+}
+
+.sell-button {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+}
+
+.sell-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+}
+
+.approve-button {
+  background: #ffc107;
+  color: #333;
+}
+
+.approve-button:hover:not(:disabled) {
+  background: #ffb300;
+}
+
+.action-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
