@@ -16,8 +16,8 @@ function WalletConnect() {
     <div className="wallet-connect">
       <div className="wallet-connect-card">
         <div className="wallet-icon">🔐</div>
-        <h2>连接钱包</h2>
-        <p>连接您的 Web3 钱包以开始使用 DEX</p>
+        <h2>Connect Wallet</h2>
+        <p>Connect your Web3 wallet to start using DEX</p>
         
         {error && (
           <div className="error-message">
@@ -30,12 +30,12 @@ function WalletConnect() {
           onClick={handleConnect}
           disabled={loading || connecting}
         >
-          {loading || connecting ? '连接中...' : '连接 MetaMask'}
+          {loading || connecting ? 'Connecting...' : 'Connect MetaMask'}
         </button>
 
         <div className="wallet-info">
           <p className="info-text">
-            💡 提示：请确保已安装 MetaMask 或其他 Web3 钱包扩展
+            💡 Tip: Please ensure MetaMask or another Web3 wallet extension is installed
           </p>
         </div>
       </div>

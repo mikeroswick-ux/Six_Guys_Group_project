@@ -16,4 +16,3 @@ contract LPToken is ERC20, Ownable {
 	}
 }
 
-

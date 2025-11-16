@@ -67,10 +67,10 @@ function Swap() {
       const tx = await signer.sendTransaction(approvalData)
       await tx.wait()
       setNeedsApproval(false)
-      setSuccess('授权成功！')
+      setSuccess('Approval successful!')
       setTimeout(() => setSuccess(null), 3000)
     } catch (err) {
-      setError(err.message || '授权失败')
+      setError(err.message || 'Approval failed')
     } finally {
       setLoading(false)
     }
@@ -85,7 +85,7 @@ function Swap() {
 
     try {
       if (needsApproval) {
-        setError('请先授权代币')
+        setError('Please approve token first')
         setLoading(false)
         return
       }
@@ -95,7 +95,7 @@ function Swap() {
 
       if (swapData.requiresApproval) {
         setNeedsApproval(true)
-        setError('需要先授权代币')
+        setError('Token approval required')
         setLoading(false)
         return
       }
@@ -106,14 +106,14 @@ function Swap() {
         value: swapData.data.value
       })
 
-      setSuccess('交易已提交，等待确认...')
+      setSuccess('Transaction submitted, waiting for confirmation...')
       const receipt = await tx.wait()
-      setSuccess('交换成功！')
+      setSuccess('Swap successful!')
       setAmountIn('')
       setAmountOut('')
       setTimeout(() => setSuccess(null), 5000)
     } catch (err) {
-      setError(err.message || '交换失败')
+      setError(err.message || 'Swap failed')
     } finally {
       setLoading(false)
     }
@@ -130,11 +130,11 @@ function Swap() {
 
   return (
     <div className="swap-container">
-      <h2>代币交换</h2>
+      <h2>Token Swap</h2>
       
       <div className="swap-card">
         <div className="swap-input-group">
-          <label>支付</label>
+          <label>Pay</label>
           <div className="input-wrapper">
             <input
               type="number"
@@ -144,7 +144,7 @@ function Swap() {
               disabled={loading}
             />
             <div className="token-select">
-              <span>{tokenIn ? `${tokenIn.slice(0, 6)}...${tokenIn.slice(-4)}` : '选择代币'}</span>
+              <span>{tokenIn ? `${tokenIn.slice(0, 6)}...${tokenIn.slice(-4)}` : 'Select Token'}</span>
             </div>
           </div>
         </div>
@@ -154,7 +154,7 @@ function Swap() {
         </button>
 
         <div className="swap-input-group">
-          <label>获得（预估）</label>
+          <label>Receive (Estimated)</label>
           <div className="input-wrapper">
             <input
               type="text"
@@ -164,7 +164,7 @@ function Swap() {
               className="readonly"
             />
             <div className="token-select">
-              <span>{tokenOut ? `${tokenOut.slice(0, 6)}...${tokenOut.slice(-4)}` : '选择代币'}</span>
+              <span>{tokenOut ? `${tokenOut.slice(0, 6)}...${tokenOut.slice(-4)}` : 'Select Token'}</span>
             </div>
           </div>
         </div>
@@ -178,7 +178,7 @@ function Swap() {
             onClick={handleApprove}
             disabled={loading}
           >
-            {loading ? '处理中...' : '授权代币'}
+            {loading ? 'Processing...' : 'Approve Token'}
           </button>
         ) : (
           <button
@@ -186,7 +186,7 @@ function Swap() {
             onClick={handleSwap}
             disabled={loading || !amountIn || !amountOut}
           >
-            {loading ? '处理中...' : '交换'}
+            {loading ? 'Processing...' : 'Swap'}
           </button>
         )}
       </div>

@@ -1,11 +1,32 @@
 // 合约交互工具函数
 const { ethers } = require('ethers');
 const config = require('../config');
+const fs = require('fs');
+const path = require('path');
 
 // 合约ABI（从编译后的artifacts中读取）
-const DEX_ABI = require('../../artifacts/contracts/DEX.sol/DEX.json').abi;
-const ERC20_ABI = require('../../artifacts/@openzeppelin/contracts/token/ERC20/ERC20.sol/ERC20.json').abi;
-const LP_TOKEN_ABI = require('../../artifacts/contracts/LPToken.sol/LPToken.json').abi;
+let DEX_ABI, ERC20_ABI, LP_TOKEN_ABI;
+
+try {
+  DEX_ABI = require('../../artifacts/contracts/DEX.sol/DEX.json').abi;
+} catch (e) {
+  console.error('⚠️  Warning: DEX ABI not found. Please run "npm run build" first.');
+  DEX_ABI = [];
+}
+
+try {
+  ERC20_ABI = require('../../artifacts/@openzeppelin/contracts/token/ERC20/ERC20.sol/ERC20.json').abi;
+} catch (e) {
+  console.error('⚠️  Warning: ERC20 ABI not found. Please run "npm run build" first.');
+  ERC20_ABI = [];
+}
+
+try {
+  LP_TOKEN_ABI = require('../../artifacts/contracts/LPToken.sol/LPToken.json').abi;
+} catch (e) {
+  console.error('⚠️  Warning: LPToken ABI not found. Please run "npm run build" first.');
+  LP_TOKEN_ABI = [];
+}
 
 /**
  * 获取Provider实例

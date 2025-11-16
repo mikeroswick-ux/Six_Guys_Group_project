@@ -26,19 +26,19 @@ function AppContent() {
                 className={`tab ${activeTab === 'swap' ? 'active' : ''}`}
                 onClick={() => setActiveTab('swap')}
               >
-                交换
+                Swap
               </button>
               <button
                 className={`tab ${activeTab === 'trade' ? 'active' : ''}`}
                 onClick={() => setActiveTab('trade')}
               >
-                买卖
+                Trade
               </button>
               <button
                 className={`tab ${activeTab === 'status' ? 'active' : ''}`}
                 onClick={() => setActiveTab('status')}
               >
-                我的资产
+                My Assets
               </button>
             </div>
 

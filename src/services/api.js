@@ -7,7 +7,31 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 10000, // 10秒超时
 })
+
+// 添加请求拦截器
+api.interceptors.request.use(
+  (config) => {
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
+
+// 添加响应拦截器，统一处理错误
+api.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  (error) => {
+    if (error.code === 'ECONNREFUSED' || error.message.includes('Network Error')) {
+      error.message = '无法连接到后端服务器。请确保后端 API 服务器正在运行 (npm run server)'
+    }
+    return Promise.reject(error)
+  }
+)
 
 export async function getNetworkConfig() {
   const response = await api.get('/api/wallet/connect')

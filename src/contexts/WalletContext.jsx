@@ -50,7 +50,7 @@ export function WalletProvider({ children }) {
 
   const connectWallet = async () => {
     if (typeof window.ethereum === 'undefined') {
-      setError('请安装 MetaMask 或其他 Web3 钱包')
+      setError('Please install MetaMask or another Web3 wallet')
       return false
     }
 
@@ -100,7 +100,7 @@ export function WalletProvider({ children }) {
       return true
     } catch (err) {
       console.error('Error connecting wallet:', err)
-      setError(err.message || '连接钱包失败')
+      setError(err.message || 'Failed to connect wallet')
       return false
     } finally {
       setLoading(false)

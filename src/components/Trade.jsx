@@ -73,10 +73,10 @@ function Trade() {
       const tx = await signer.sendTransaction(approvalData)
       await tx.wait()
       setNeedsApproval(false)
-      setSuccess('授权成功！')
+      setSuccess('Approval successful!')
       setTimeout(() => setSuccess(null), 3000)
     } catch (err) {
-      setError(err.message || '授权失败')
+      setError(err.message || 'Approval failed')
     } finally {
       setLoading(false)
     }
@@ -91,7 +91,7 @@ function Trade() {
 
     try {
       if (mode === 'sell' && needsApproval) {
-        setError('请先授权代币')
+        setError('Please approve token first')
         setLoading(false)
         return
       }
@@ -102,7 +102,7 @@ function Trade() {
 
       if (result.requiresApproval) {
         setNeedsApproval(true)
-        setError('需要先授权代币')
+        setError('Token approval required')
         setLoading(false)
         return
       }
@@ -116,14 +116,14 @@ function Trade() {
         value: tradeData.value
       })
 
-      setSuccess('交易已提交，等待确认...')
+      setSuccess('Transaction submitted, waiting for confirmation...')
       const receipt = await tx.wait()
-      setSuccess(`${mode === 'buy' ? '购买' : '出售'}成功！`)
+      setSuccess(`${mode === 'buy' ? 'Buy' : 'Sell'} successful!`)
       setAmount('')
       setEstimatedAmount('')
       setTimeout(() => setSuccess(null), 5000)
     } catch (err) {
-      setError(err.message || `${mode === 'buy' ? '购买' : '出售'}失败`)
+      setError(err.message || `${mode === 'buy' ? 'Buy' : 'Sell'} failed`)
     } finally {
       setLoading(false)
     }
@@ -131,26 +131,26 @@ function Trade() {
 
   return (
     <div className="trade-container">
-      <h2>买卖代币</h2>
+      <h2>Buy & Sell</h2>
 
       <div className="mode-selector">
         <button
           className={`mode-button ${mode === 'buy' ? 'active' : ''}`}
           onClick={() => setMode('buy')}
         >
-          购买
+          Buy
         </button>
         <button
           className={`mode-button ${mode === 'sell' ? 'active' : ''}`}
           onClick={() => setMode('sell')}
         >
-          出售
+          Sell
         </button>
       </div>
 
       <div className="trade-card">
         <div className="trade-input-group">
-          <label>{mode === 'buy' ? '支付金额' : '出售数量'}</label>
+          <label>{mode === 'buy' ? 'Pay Amount' : 'Sell Amount'}</label>
           <div className="input-wrapper">
             <input
               type="number"
@@ -172,7 +172,7 @@ function Trade() {
         <div className="arrow">↓</div>
 
         <div className="trade-input-group">
-          <label>{mode === 'buy' ? '获得数量（预估）' : '获得金额（预估）'}</label>
+          <label>{mode === 'buy' ? 'Receive Amount (Estimated)' : 'Receive Amount (Estimated)'}</label>
           <div className="input-wrapper">
             <input
               type="text"
@@ -200,7 +200,7 @@ function Trade() {
             onClick={handleApprove}
             disabled={loading}
           >
-            {loading ? '处理中...' : '授权代币'}
+            {loading ? 'Processing...' : 'Approve Token'}
           </button>
         ) : (
           <button
@@ -208,7 +208,7 @@ function Trade() {
             onClick={handleTrade}
             disabled={loading || !amount || !estimatedAmount}
           >
-            {loading ? '处理中...' : mode === 'buy' ? '购买' : '出售'}
+            {loading ? 'Processing...' : mode === 'buy' ? 'Buy' : 'Sell'}
           </button>
         )}
       </div>

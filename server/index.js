@@ -123,9 +123,27 @@ app.listen(PORT, () => {
   `);
   
   // 检查合约地址配置
+  console.log('\n📋 Contract Configuration:');
+  if (config.contracts.DEX) {
+    console.log(`   ✅ DEX: ${config.contracts.DEX}`);
+  } else {
+    console.warn('   ❌ DEX: Not configured');
+  }
+  if (config.contracts.Token0) {
+    console.log(`   ✅ Token0: ${config.contracts.Token0}`);
+  } else {
+    console.warn('   ⚠️  Token0: Not configured (will be fetched from DEX contract)');
+  }
+  if (config.contracts.Token1) {
+    console.log(`   ✅ Token1: ${config.contracts.Token1}`);
+  } else {
+    console.warn('   ⚠️  Token1: Not configured (will be fetched from DEX contract)');
+  }
+  
   if (!config.contracts.DEX) {
     console.warn('\n⚠️  Warning: DEX contract address not configured.');
-    console.warn('   Please deploy contracts and update server/config.js or .env file.\n');
+    console.warn('   Please run "npm run deploy" to deploy contracts and generate .env file.');
+    console.warn('   Or run "npm run check" to diagnose deployment status.\n');
   }
 });
 

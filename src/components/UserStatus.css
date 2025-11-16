@@ -43,10 +43,13 @@
 }
 
 .error-message {
-  color: #dc3545;
+  color: #721c24;
   background: #f8d7da;
   border-radius: 8px;
   margin-bottom: 1rem;
+  padding: 1rem;
+  white-space: pre-line;
+  line-height: 1.6;
 }
 
 .retry-button {

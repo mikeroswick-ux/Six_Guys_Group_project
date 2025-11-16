@@ -28,16 +28,65 @@ router.get('/status/:address', async (req, res) => {
     if (!dexAddress) {
       return res.status(500).json({
         success: false,
-        error: 'Contract addresses not configured. Please deploy contracts first.'
+        error: 'Contract addresses not configured. Please deploy contracts first and ensure .env file exists.',
+        hint: 'Run "npm run deploy" to deploy contracts and generate .env file.'
+      });
+    }
+    
+    // 检查RPC连接
+    try {
+      const provider = getProvider();
+      await provider.getBlockNumber();
+    } catch (rpcError) {
+      return res.status(500).json({
+        success: false,
+        error: 'Cannot connect to blockchain node',
+        hint: 'Please ensure Hardhat node is running: "npx hardhat node" or contracts are deployed to a running network.',
+        details: rpcError.message
       });
     }
     
     const dex = getContract('DEX', dexAddress);
     
+    // 验证DEX合约是否可访问
+    try {
+      // 先检查合约地址上是否有代码
+      const provider = getProvider();
+      const code = await provider.getCode(dexAddress);
+      if (code === '0x') {
+        return res.status(500).json({
+          success: false,
+          error: 'DEX contract not found at the specified address',
+          hint: 'The contract may not be deployed, or the address is incorrect. Please run "npm run deploy" to deploy contracts.',
+          details: `No code found at address: ${dexAddress}`
+        });
+      }
+      
+      // 尝试调用合约方法
+      await dex.token0();
+    } catch (contractError) {
+      return res.status(500).json({
+        success: false,
+        error: 'Cannot access DEX contract',
+        hint: 'Please verify the DEX_ADDRESS in .env file is correct and contracts are deployed. Run "npm run check" to diagnose the issue.',
+        details: contractError.message,
+        contractAddress: dexAddress
+      });
+    }
+    
     // 如果合约地址未配置，从DEX合约获取
-    const actualToken0 = token0Address || await dex.token0();
-    const actualToken1 = token1Address || await dex.token1();
-    const actualLPToken = lpTokenAddress || await dex.lpToken();
+    let actualToken0, actualToken1, actualLPToken;
+    try {
+      actualToken0 = token0Address || await dex.token0();
+      actualToken1 = token1Address || await dex.token1();
+      actualLPToken = lpTokenAddress || await dex.lpToken();
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        error: 'Failed to get token addresses from DEX contract',
+        details: error.message
+      });
+    }
     
     // 获取代币合约实例
     const token0Contract = getContract('ERC20', actualToken0);
@@ -165,9 +214,11 @@ router.get('/status/:address', async (req, res) => {
       }
     });
   } catch (error) {
+    console.error('Error in /api/user/status:', error);
     res.status(500).json({
       success: false,
-      error: error.message,
+      error: error.message || 'Internal server error',
+      hint: 'Please check: 1) Contracts are compiled (npm run build), 2) Contracts are deployed (npm run deploy), 3) Hardhat node is running (npx hardhat node)',
       stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
