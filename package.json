@@ -7,16 +7,23 @@
     "build": "hardhat compile",
     "test": "hardhat test",
     "deploy": "hardhat run scripts/deploy.js --network hardhat",
-    "demo": "hardhat run scripts/demo.js --network hardhat"
-  },
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "dotenv": "^16.4.5",
-    "hardhat": "^2.22.10"
+    "deploy:localhost": "hardhat run scripts/deploy-localhost.js --network localhost",
+    "demo": "hardhat run scripts/demo.js --network hardhat",
+    "check": "hardhat run scripts/check-deployment.js --network hardhat",
+    "server": "node server/index.js",
+    "server:dev": "nodemon server/index.js"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.2",
-    "ethers": "^6.13.2"
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.2",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.10",
+    "nodemon": "^3.0.2"
   }
 }
 

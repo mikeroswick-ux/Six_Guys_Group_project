@@ -9,4 +9,3 @@ contract TestToken is ERC20 {
 	}
 }
 
-
